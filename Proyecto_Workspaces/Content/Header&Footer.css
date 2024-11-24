@@ -1,0 +1,8 @@
+﻿.navbar {
+    background-color: #566885 !important;
+}
+
+.bg-dark {
+    --bs-bg-opacity: 1;
+    background-color: #566885 !important;
+}

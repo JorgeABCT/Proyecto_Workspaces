@@ -4,60 +4,61 @@
     ViewBag.Title = "Iniciar sesión";
 }
 
+@section Styles {
+    @Styles.Render("~/Content/InicioS")
+}
+
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
-    <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Utilice una cuenta local para iniciar sesión.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { role = "form", id = "formIniciarSesion" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h3 class="mb-3 text-center">Iniciar sesión</h3>
+                        <hr />
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <!-- Nombre de usuario -->
+                        <div class="form-floating">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "nombreUsuario" })
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="row">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+                        <!-- Contraseña -->
+                        <div class="form-floating">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <input type="submit" value="Iniciar sesión" class="btn btn-outline-dark" />
-                        </div>
-                    </div>
-                    <p>
-                        @Html.ActionLink("Registrarse como usuario nuevo", "Register")
-                    </p>
-                    @* Habilite esta opción una vez tenga la confirmación de la cuenta habilitada para la funcionalidad de restablecimiento de contraseña
-                        <p>
-                            @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
-                        </p>*@
-                }
-            </section>
-        </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
+
+                        <!-- Olvidaste contraseña -->
+                        <a class="text-decoration-none text-dark" href="@Url.Action("ForgotPassword", "Account")">¿Olvidaste tu contraseña?</a>
+                        <br>
+
+                        <!-- Botón iniciar sesión -->
+                        <button id="iniciarSesionBtn" class="w-100 btn btn-outline-dark" type="submit">Iniciar sesión</button>
+                        <br>
+
+                        <!-- Enlace para registrarse -->
+                        <a class="text-decoration-none text-dark" href="@Url.Action("Register", "Account")">¿No tienes una cuenta? Regístrate</a>
+                    }
+                </section>
+            </div>
+            <div class="col-md-4">
+                <!-- Sección para inicio de sesión social (si se necesita) -->
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
         </div>
     </div>
+
+
 </main>
 
 @section Scripts {
