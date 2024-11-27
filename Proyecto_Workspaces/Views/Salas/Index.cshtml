@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #2B4552;">Gestión de Salas</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 style="color: c;">Listado de Salas</h4>
+        <a href="/Salas/Crear" class="btn" style="background-color: #557788; color: #EEEAE7;">
+            <i class="fas fa-plus"></i> Nueva Sala
+        </a>
+    </div>
+
+    <div class="row">
+        <!-- Card Template -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm" style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 10px; ">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #2B4552;">
+                        <i class="fas fa-door-open"></i> Sala A
+                    </h5>
+                    <p class="card-text">
+                        <strong>Capacidad:</strong> 10 personas<br>
+                        <strong>Ubicación:</strong> Piso 1<br>
+                        <strong>Equipamiento:</strong> Proyector, Pizarra<br>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge" style="background-color: #BEBAB7; color: #557788; ">Disponible</span>
+                        <div>
+                            <a href="/Room/Edit" class="btn btn-sm" style="background-color: #97A3AA; color: #2B4552;">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <button class="btn btn-sm" style="background-color: #BEBAB7; color: #2B4552;">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

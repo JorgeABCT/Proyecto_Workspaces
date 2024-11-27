@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Estadísticas";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #2B4552;">Estadísticas de Uso de Salas</h2>
+
+    <!-- Porcentaje de Ocupación por Sala -->
+    <div class="mb-4">
+        <h4 style="color: #2B4552;">Porcentaje de Ocupación por Sala</h4>
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Sala</th>
+                    <th>Número de Reservas</th>
+                    <th>Horas Totales</th>
+                    <th>Ocupación (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sala A</td>
+                    <td>12</td>
+                    <td>36</td>
+                    <td>75%</td>
+                </tr>
+                <tr>
+                    <td>Sala B</td>
+                    <td>8</td>
+                    <td>24</td>
+                    <td>50%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row">
+        <!-- Horas más demandadas -->
+        <div class="col-md-6 mb-4">
+            <h4 style="color: #2B4552;">Horas Más Demandadas</h4>
+            <canvas id="hourChart"></canvas>
+        </div>
+        <!-- Días más activos -->
+        <div class="col-md-6 mb-4">
+            <h4 style="color: #2B4552;">Días de la Semana con Más Actividad</h4>
+            <canvas id="dayChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Datos simulados
+    const hourData = {
+        labels: ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00'],
+        datasets: [{
+            label: 'Reservas',
+            data: [5, 8, 12, 7, 6],
+            backgroundColor: '#557788'
+        }]
+    };
+
+    const dayData = {
+        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+        datasets: [{
+            label: 'Reservas',
+            data: [15, 20, 18, 22, 25],
+            backgroundColor: '#97A3AA'
+        }]
+    };
+
+    // Gráfico de horas más demandadas
+    new Chart(document.getElementById('hourChart').getContext('2d'), {
+        type: 'bar',
+        data: hourData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Gráfico de días más activos
+    new Chart(document.getElementById('dayChart').getContext('2d'), {
+        type: 'bar',
+        data: dayData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>

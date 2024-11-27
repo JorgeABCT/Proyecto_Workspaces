@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Crear";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #2B4552;">Crear Nueva Sala</h2>
+
+    <div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
+        <div class="card-body">
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="Name" class="form-label" style="color: #2B4552;">Nombre de la Sala</label>
+                        <input type="text"
+                               class="form-control"
+                               id="Name"
+                               placeholder="Ejemplo: Sala de Junta"
+                               style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; ">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Capacity" class="form-label" style="color: #2B4552;">Capacidad</label>
+                        <input type="number"
+                               class="form-control"
+                               id="Capacity"
+                               placeholder="Ejemplo: 10 personas"
+                               style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="Location" class="form-label" style="color: #2B4552;">Ubicación</label>
+                        <input type="text"
+                               class="form-control"
+                               id="Location"
+                               placeholder="Ejemplo: Piso 2"
+                               style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Equipment" class="form-label" style="color: #2B4552;">Equipamiento</label>
+                        <input type="text"
+                               class="form-control"
+                               id="Equipment"
+                               placeholder="Ejemplo: Proyector, Pizarra"
+                               style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Availability" class="form-label" style="color: #2B4552;">Disponibilidad</label>
+                    <select class="form-select"
+                            id="Availability"
+                            style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;">
+                        <option value="true">Disponible</option>
+                        <option value="false">No Disponible</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit"
+                            class="btn"
+                            style="background-color: #557788; color: #EEEAE7; border-radius: 5px;">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a href="/Room/Index"
+                       class="btn"
+                       style="background-color: #BEBAB7; color: #2B4552; border-radius: 5px;">
+                        <i class="fas fa-arrow-left"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
