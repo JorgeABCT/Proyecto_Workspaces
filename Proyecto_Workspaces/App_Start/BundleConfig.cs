@@ -25,6 +25,16 @@ namespace Proyecto_Workspaces
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Header&Footer").Include(
+                    "~/Content/Header&Footer.css"));
+
+            bundles.Add(new StyleBundle("~/Content/InicioS").Include(
+                    "~/Content/InicioSesion.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Registrarse").Include(
+                    "~/Content/Registrarse.css",
+                    "~/Content/InicioSesion.css"));
         }
     }
 }

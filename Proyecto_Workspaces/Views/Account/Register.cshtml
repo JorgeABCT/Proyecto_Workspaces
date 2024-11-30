@@ -3,37 +3,50 @@
     ViewBag.Title = "Registrarse";
 }
 
+@section Styles {
+    @Styles.Render("~/Content/Registrarse")
+
+}
+
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+    <h2 id="title">@ViewBag.Title</h2>
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
     {
-        @Html.AntiForgeryToken()
-        <h4>Cree una cuenta nueva.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        <div class="row g-3">
+
+            <!-- Nombre -->
+            <div class="col-12 form-floating">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nombre" })
+                <label for="Nombre">Nombre</label>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+
+            <!-- Primer Apellido -->
+            <div class="col-5 form-floating">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Primer Apellido" })
+                <label for="PrimerApellido">Primer Apellido</label>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+            <!-- Segundo Apellido -->
+            <div class="col-5 form-floating">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Segundo Apellido" })
+                <label for="SegundoApellido">Segundo Apellido</label>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Registrarse" class="btn btn-outline-dark" />
+
+            <!-- Botón de Registrar -->
+            <div class="col-12 text-center"> 
+                <button class="w-100 btn btn-outline-dark" type="submit"> <h4>Registrar</h4> </button>
             </div>
+
+            <!-- Enlace a inicio de sesión -->
+            <div class="col-12 text-center mt-3">
+                <a class="link" href="/Account/Login">¿Ya tienes cuenta? Inicia sesión</a>
+            </div>
+
         </div>
     }
 </main>
