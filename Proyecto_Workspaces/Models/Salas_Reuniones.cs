@@ -15,6 +15,9 @@ namespace Proyecto_Workspaces.Models
         public string SalasNombre { get; set; }
 
         [Required]
+        public int Capacidad { get; set; }
+
+        [Required]
         public TimeSpan Hora_Apertura { get; set; }
 
         [Required]
@@ -25,6 +28,9 @@ namespace Proyecto_Workspaces.Models
 
         [Required]
         public bool DisponibilidadEquipo { get; set; } = false;
+
+        [Required]
+        public bool Activo { get; set; }
 
         public virtual ICollection<Equipo> Equipos { get; set; }
     }

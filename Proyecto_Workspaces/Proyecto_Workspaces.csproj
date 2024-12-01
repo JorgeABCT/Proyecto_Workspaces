@@ -169,6 +169,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EquiposController.cs" />
+    <Compile Include="Controllers\SalasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -177,6 +179,14 @@
     <Compile Include="Migrations\202411230325109_MigracionV1.cs" />
     <Compile Include="Migrations\202411230325109_MigracionV1.Designer.cs">
       <DependentUpon>202411230325109_MigracionV1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412010159182_MigracionV2.cs" />
+    <Compile Include="Migrations\202412010159182_MigracionV2.Designer.cs">
+      <DependentUpon>202412010159182_MigracionV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412010211568_MigracionV3.cs" />
+    <Compile Include="Migrations\202412010211568_MigracionV3.Designer.cs">
+      <DependentUpon>202412010211568_MigracionV3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -265,9 +275,21 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Salas\Crear.cshtml" />
+    <Content Include="Views\Salas\Editar.cshtml" />
+    <Content Include="Views\Salas\Index.cshtml" />
+    <Content Include="Views\Equipos\Index.cshtml" />
+    <Content Include="Views\Equipos\Crear.cshtml" />
+    <Content Include="Views\Equipos\Eliminar.cshtml" />
+    <Content Include="Views\Equipos\Detalles.cshtml" />
+    <Content Include="Views\Equipos\Editar.cshtml" />
+    <Content Include="Views\Equipos\Agregar.cshtml" />
+    <Content Include="Views\Equipos\Quitar.cshtml" />
+    <Content Include="Views\Salas\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -299,6 +321,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202411230325109_MigracionV1.resx">
       <DependentUpon>202411230325109_MigracionV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412010159182_MigracionV2.resx">
+      <DependentUpon>202412010159182_MigracionV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412010211568_MigracionV3.resx">
+      <DependentUpon>202412010211568_MigracionV3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

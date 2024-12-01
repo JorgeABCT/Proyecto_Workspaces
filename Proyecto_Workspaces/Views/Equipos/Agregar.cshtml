@@ -1,0 +1,39 @@
+﻿@model Proyecto_Workspaces.Models.Equipo
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<h2>Agregar uso de equipo a sala de reunion</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.HiddenFor(model => model.EquipoId)
+            @Html.LabelFor(model => model.Nombre, "Nombre del Equipo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <br />
+            @Html.DisplayFor(model => model.Nombre)
+            <br />
+            <br />
+            @Html.LabelFor(model => model.Serie, "Serie del Equipo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <br />
+            @Html.DisplayFor(model => model.Serie)
+            <br />
+            <br />
+            <div class="col-md-10">
+                @Html.DropDownList("ID_Salas", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EquipoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Agregar Equipo a Sala" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<br />
+@Html.ActionLink("Volver a Listado", "Index", new { }, new { @class = "btn btn-warning" })
