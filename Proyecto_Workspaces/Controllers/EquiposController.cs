@@ -86,6 +86,7 @@ namespace Proyecto_Workspaces.Controllers
             if (id == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             var equipo = context.Equipos.Find(id);
             if (equipo == null) return HttpNotFound();
+
             ViewBag.ID_Salas = new SelectList(context.SalasReuniones, "SalasId", "SalasNombre");
             return View(equipo);
         }
@@ -137,7 +138,7 @@ namespace Proyecto_Workspaces.Controllers
             equipo.Salas.Remove(sala);
             sala.Equipos.Remove(equipo);
 
-            if(equipo.Salas == null)
+            if(sala.Equipos.Count == 0)
             {
                 sala.DisponibilidadEquipo = false;
             }
