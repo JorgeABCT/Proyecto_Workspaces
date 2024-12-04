@@ -13,21 +13,25 @@ namespace Proyecto_Workspaces.Models
         public int ReservaId { get; set; }
 
         [Required]
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
         [Required]
-        public int SalaId { get; set; }
-        [ForeignKey("SalaId")]
         public Salas_Reuniones Sala { get; set; }
 
         [Required]
-        public int EstadoId { get; set; }
-        [ForeignKey("EstadoId")]
         public Estado Estado { get; set; }
 
-        public DateTime FechaReservacion { get; set; }
-        public DateTime FechaFinalizacion { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Fecha { get; set; }
+        //Solo va a guardar la fecha, aunque se le pase la hora.
+        //Ex. 2024-12-04 12:00:00 -> 2024-12-04
+
+        [Required]
+        public TimeSpan FechaReservacion { get; set; }
+        [Required]
+        public TimeSpan FechaFinalizacion { get; set; }
+        [Required]
+        public bool Modificada { get; set; } = false;
     }
 }

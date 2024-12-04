@@ -36,7 +36,6 @@ namespace Proyecto_Workspaces.Models
                 });
 
             base.OnModelCreating(modelBuilder);
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

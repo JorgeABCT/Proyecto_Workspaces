@@ -7,13 +7,13 @@ namespace Proyecto_Workspaces.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class MigracionV1 : IMigrationMetadata
+    public sealed partial class MigracionV5 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MigracionV1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MigracionV5));
         
         string IMigrationMetadata.Id
         {
-            get { return "202411230325109_MigracionV1"; }
+            get { return "202412040646102_MigracionV5"; }
         }
         
         string IMigrationMetadata.Source

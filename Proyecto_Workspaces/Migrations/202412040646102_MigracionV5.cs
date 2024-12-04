@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class MigracionV1 : DbMigration
+    public partial class MigracionV5 : DbMigration
     {
         public override void Up()
         {
@@ -23,10 +23,12 @@
                     {
                         SalasId = c.Int(nullable: false, identity: true),
                         SalasNombre = c.String(nullable: false),
+                        Capacidad = c.Int(nullable: false),
                         Hora_Apertura = c.Time(nullable: false, precision: 7),
                         Hora_Clausura = c.Time(nullable: false, precision: 7),
                         Ubicacion = c.String(nullable: false),
                         DisponibilidadEquipo = c.Boolean(nullable: false),
+                        Activo = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.SalasId);
             
@@ -44,19 +46,21 @@
                 c => new
                     {
                         ReservaId = c.Int(nullable: false, identity: true),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        SalaId = c.Int(nullable: false),
-                        EstadoId = c.Int(nullable: false),
-                        FechaReservacion = c.DateTime(nullable: false),
-                        FechaFinalizacion = c.DateTime(nullable: false),
+                        Fecha = c.DateTime(nullable: false),
+                        FechaReservacion = c.Time(nullable: false, precision: 7),
+                        FechaFinalizacion = c.Time(nullable: false, precision: 7),
+                        Modificada = c.Boolean(nullable: false),
+                        Estado_EstadoID = c.Int(nullable: false),
+                        Sala_SalasId = c.Int(nullable: false),
+                        User_Id = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.ReservaId)
-                .ForeignKey("dbo.Estadoes", t => t.EstadoId, cascadeDelete: true)
-                .ForeignKey("dbo.Salas_Reuniones", t => t.SalaId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.SalaId)
-                .Index(t => t.EstadoId);
+                .ForeignKey("dbo.Estadoes", t => t.Estado_EstadoID, cascadeDelete: true)
+                .ForeignKey("dbo.Salas_Reuniones", t => t.Sala_SalasId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.Estado_EstadoID)
+                .Index(t => t.Sala_SalasId)
+                .Index(t => t.User_Id);
             
             CreateTable(
                 "dbo.Users",
@@ -148,12 +152,12 @@
         public override void Down()
         {
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.Reservas", "UserId", "dbo.Users");
+            DropForeignKey("dbo.Reservas", "User_Id", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserClaims", "UserId", "dbo.Users");
-            DropForeignKey("dbo.Reservas", "SalaId", "dbo.Salas_Reuniones");
-            DropForeignKey("dbo.Reservas", "EstadoId", "dbo.Estadoes");
+            DropForeignKey("dbo.Reservas", "Sala_SalasId", "dbo.Salas_Reuniones");
+            DropForeignKey("dbo.Reservas", "Estado_EstadoID", "dbo.Estadoes");
             DropForeignKey("dbo.Salas_Equipo", "EquipoID", "dbo.Equipoes");
             DropForeignKey("dbo.Salas_Equipo", "SalaID", "dbo.Salas_Reuniones");
             DropIndex("dbo.Salas_Equipo", new[] { "EquipoID" });
@@ -164,9 +168,9 @@
             DropIndex("dbo.UserLogins", new[] { "UserId" });
             DropIndex("dbo.UserClaims", new[] { "UserId" });
             DropIndex("dbo.Users", "UserNameIndex");
-            DropIndex("dbo.Reservas", new[] { "EstadoId" });
-            DropIndex("dbo.Reservas", new[] { "SalaId" });
-            DropIndex("dbo.Reservas", new[] { "UserId" });
+            DropIndex("dbo.Reservas", new[] { "User_Id" });
+            DropIndex("dbo.Reservas", new[] { "Sala_SalasId" });
+            DropIndex("dbo.Reservas", new[] { "Estado_EstadoID" });
             DropTable("dbo.Salas_Equipo");
             DropTable("dbo.Roles");
             DropTable("dbo.UserRoles");

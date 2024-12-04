@@ -18,6 +18,13 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
+            context.Estados.AddOrUpdate(
+                e => e.EstadoID,
+                new Models.Estado { EstadoID = 1, EstadoNombre = "Aprobada para su uso" },
+                new Models.Estado { EstadoID = 2, EstadoNombre = "Denegada para el uso" },
+                new Models.Estado { EstadoID = 3, EstadoNombre = "Aprobada con modificaciones para su uso" }
+
+                );
         }
     }
 }

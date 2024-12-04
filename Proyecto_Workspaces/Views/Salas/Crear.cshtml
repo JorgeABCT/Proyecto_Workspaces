@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="Capacidad" class="form-label" style="color: #2B4552;">Capacidad</label>
-                        @Html.EditorFor(model => model.Capacidad, new { htmlAttributes = new { @class = "form-control", @type = "number", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.EditorFor(model => model.Capacidad, new { htmlAttributes = new { @class = "form-control", @type = "number", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; ", @min = "1" } })
                         @Html.ValidationMessageFor(model => model.Capacidad, "", new { @class = "text-danger" })
 
                     </div>
@@ -44,12 +44,12 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="Hora_Apertura" class="form-label" style="color: #2B4552;">Hora de apertura de la sala</label>
-                        @Html.EditorFor(model => model.Hora_Apertura, new { htmlAttributes = new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.EditorFor(model => model.Hora_Apertura, new { htmlAttributes = new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; ", @min="07:00", @max="20:00" } })
                         @Html.ValidationMessageFor(model => model.Hora_Apertura, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         <label for="Hora_Clausura" class="form-label" style="color: #2B4552;">Hora de clausura de la sala</label>
-                        @Html.EditorFor(model => model.Hora_Clausura, new { htmlAttributes = new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.EditorFor(model => model.Hora_Clausura, new { htmlAttributes = new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; ", @min="07:00", @max = "20:00" } })
                         @Html.ValidationMessageFor(model => model.Hora_Clausura, "", new { @class = "text-danger" })
 
                     </div>

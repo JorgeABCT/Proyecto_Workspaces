@@ -177,17 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202411230325109_MigracionV1.cs" />
-    <Compile Include="Migrations\202411230325109_MigracionV1.Designer.cs">
-      <DependentUpon>202411230325109_MigracionV1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202412010159182_MigracionV2.cs" />
-    <Compile Include="Migrations\202412010159182_MigracionV2.Designer.cs">
-      <DependentUpon>202412010159182_MigracionV2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202412010211568_MigracionV3.cs" />
-    <Compile Include="Migrations\202412010211568_MigracionV3.Designer.cs">
-      <DependentUpon>202412010211568_MigracionV3.cs</DependentUpon>
+    <Compile Include="Migrations\202412040646102_MigracionV5.cs" />
+    <Compile Include="Migrations\202412040646102_MigracionV5.Designer.cs">
+      <DependentUpon>202412040646102_MigracionV5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -287,11 +279,14 @@
     <Content Include="Views\Equipos\Agregar.cshtml" />
     <Content Include="Views\Equipos\Quitar.cshtml" />
     <Content Include="Views\Salas\Detalle.cshtml" />
+    <Content Include="Views\Reservas\Index.cshtml" />
+    <Content Include="Views\Reservas\Create.cshtml" />
+    <Content Include="Views\Reservas\Details.cshtml" />
+    <Content Include="Views\Reservas\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Reservas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -321,14 +316,8 @@
     <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202411230325109_MigracionV1.resx">
-      <DependentUpon>202411230325109_MigracionV1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202412010159182_MigracionV2.resx">
-      <DependentUpon>202412010159182_MigracionV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202412010211568_MigracionV3.resx">
-      <DependentUpon>202412010211568_MigracionV3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202412040646102_MigracionV5.resx">
+      <DependentUpon>202412040646102_MigracionV5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
