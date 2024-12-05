@@ -177,9 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202412040646102_MigracionV5.cs" />
-    <Compile Include="Migrations\202412040646102_MigracionV5.Designer.cs">
-      <DependentUpon>202412040646102_MigracionV5.cs</DependentUpon>
+    <Compile Include="Migrations\202412050333348_MigracionV7.cs" />
+    <Compile Include="Migrations\202412050333348_MigracionV7.Designer.cs">
+      <DependentUpon>202412050333348_MigracionV7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -278,10 +278,10 @@
     <Content Include="Views\Equipos\Agregar.cshtml" />
     <Content Include="Views\Equipos\Quitar.cshtml" />
     <Content Include="Views\Salas\Detalle.cshtml" />
-    <Content Include="Views\Reservas\Index.cshtml" />
-    <Content Include="Views\Reservas\Create.cshtml" />
-    <Content Include="Views\Reservas\Details.cshtml" />
-    <Content Include="Views\Reservas\Edit.cshtml" />
+    <Content Include="Views\Reserva\Index.cshtml" />
+    <Content Include="Views\Reserva\Create.cshtml" />
+    <Content Include="Views\Reserva\Details.cshtml" />
+    <Content Include="Views\Reserva\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,8 +315,8 @@
     <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202412040646102_MigracionV5.resx">
-      <DependentUpon>202412040646102_MigracionV5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202412050333348_MigracionV7.resx">
+      <DependentUpon>202412050333348_MigracionV7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

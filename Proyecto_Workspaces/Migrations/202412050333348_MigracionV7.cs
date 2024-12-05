@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class MigracionV5 : DbMigration
+    public partial class MigracionV7 : DbMigration
     {
         public override void Up()
         {
@@ -57,13 +57,13 @@
                 .PrimaryKey(t => t.ReservaId)
                 .ForeignKey("dbo.Estadoes", t => t.Estado_EstadoID, cascadeDelete: true)
                 .ForeignKey("dbo.Salas_Reuniones", t => t.Sala_SalasId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.Estado_EstadoID)
                 .Index(t => t.Sala_SalasId)
                 .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.Users",
+                "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -87,7 +87,7 @@
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
-                "dbo.UserClaims",
+                "dbo.AspNetUserClaims",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -96,11 +96,11 @@
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.UserLogins",
+                "dbo.AspNetUserLogins",
                 c => new
                     {
                         LoginProvider = c.String(nullable: false, maxLength: 128),
@@ -108,24 +108,24 @@
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.UserRoles",
+                "dbo.AspNetUserRoles",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "dbo.Roles",
+                "dbo.AspNetRoles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -151,32 +151,32 @@
         
         public override void Down()
         {
-            DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.Reservas", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
-            DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
-            DropForeignKey("dbo.UserClaims", "UserId", "dbo.Users");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Reservas", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Reservas", "Sala_SalasId", "dbo.Salas_Reuniones");
             DropForeignKey("dbo.Reservas", "Estado_EstadoID", "dbo.Estadoes");
             DropForeignKey("dbo.Salas_Equipo", "EquipoID", "dbo.Equipoes");
             DropForeignKey("dbo.Salas_Equipo", "SalaID", "dbo.Salas_Reuniones");
             DropIndex("dbo.Salas_Equipo", new[] { "EquipoID" });
             DropIndex("dbo.Salas_Equipo", new[] { "SalaID" });
-            DropIndex("dbo.Roles", "RoleNameIndex");
-            DropIndex("dbo.UserRoles", new[] { "RoleId" });
-            DropIndex("dbo.UserRoles", new[] { "UserId" });
-            DropIndex("dbo.UserLogins", new[] { "UserId" });
-            DropIndex("dbo.UserClaims", new[] { "UserId" });
-            DropIndex("dbo.Users", "UserNameIndex");
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Reservas", new[] { "User_Id" });
             DropIndex("dbo.Reservas", new[] { "Sala_SalasId" });
             DropIndex("dbo.Reservas", new[] { "Estado_EstadoID" });
             DropTable("dbo.Salas_Equipo");
-            DropTable("dbo.Roles");
-            DropTable("dbo.UserRoles");
-            DropTable("dbo.UserLogins");
-            DropTable("dbo.UserClaims");
-            DropTable("dbo.Users");
+            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
             DropTable("dbo.Reservas");
             DropTable("dbo.Estadoes");
             DropTable("dbo.Salas_Reuniones");
