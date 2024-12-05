@@ -1,0 +1,78 @@
+﻿@model Proyecto_Workspaces.Models.Equipo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="text-center">Detalles del Equipo</h2>
+
+<div>
+    <hr />
+    <div class="d-flex justify-content-center">
+
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
+                </dl>
+            </div>
+            <dl class="col">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Serie)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Serie)
+                </dd>
+            </dl>
+            <div>
+                <h5 class="text-center">
+                    Esta asignado a una sala?
+                </h5>
+                @if (Model.Salas.Count != 0)
+                {
+                    foreach (var item in Model.Salas)
+                    {
+                        <div class="col d-flex justify-content-center">
+                            <dl>
+                                <dt>
+                                    @Html.DisplayNameFor(model => item.SalasNombre)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => item.SalasNombre)
+                                </dd>
+                            </dl>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col d-flex justify-content-center">
+                        <dl>
+                            <dt>
+                                No esta asignado a ninguna sala
+                            </dt>
+                        </dl>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="text-center">
+    @if (Model.Salas.Count != 0)
+    {
+        @Html.ActionLink("Quitar de una sala", "Quitar", new { id = Model.EquipoId }, new { @class = "btn", @style = "background-color: #557788; color: #EEEAE7; border-radius: 5px;\r\n" })
+    }
+    @Html.ActionLink("Agregar a una sala", "Agregar", new { id = Model.EquipoId }, new { @class = "btn", @style = "background-color: #557788; color: #EEEAE7; border-radius: 5px;\r\n" })
+    @Html.ActionLink("Editar", "Editar", new { id = Model.EquipoId }, new { @class = "btn", @style = "background-color: #97A3AA; color: #2B4552;" })
+    @Html.ActionLink("Volver al listado", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+</div>

@@ -169,14 +169,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EquiposController.cs" />
+    <Compile Include="Controllers\ReservaController.cs" />
+    <Compile Include="Controllers\SalasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202411230325109_MigracionV1.cs" />
-    <Compile Include="Migrations\202411230325109_MigracionV1.Designer.cs">
-      <DependentUpon>202411230325109_MigracionV1.cs</DependentUpon>
+    <Compile Include="Migrations\202412050333348_MigracionV7.cs" />
+    <Compile Include="Migrations\202412050333348_MigracionV7.Designer.cs">
+      <DependentUpon>202412050333348_MigracionV7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -210,7 +213,6 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Header&amp;Footer.css" />
     <Content Include="Content\InicioSesion.css" />
-    <Content Include="Content\Registrarse.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -265,9 +267,25 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Salas\Crear.cshtml" />
+    <Content Include="Views\Salas\Editar.cshtml" />
+    <Content Include="Views\Salas\Index.cshtml" />
+    <Content Include="Views\Equipos\Index.cshtml" />
+    <Content Include="Views\Equipos\Crear.cshtml" />
+    <Content Include="Views\Equipos\Eliminar.cshtml" />
+    <Content Include="Views\Equipos\Detalles.cshtml" />
+    <Content Include="Views\Equipos\Editar.cshtml" />
+    <Content Include="Views\Equipos\Agregar.cshtml" />
+    <Content Include="Views\Equipos\Quitar.cshtml" />
+    <Content Include="Views\Salas\Detalle.cshtml" />
+    <Content Include="Views\Reserva\Index.cshtml" />
+    <Content Include="Views\Reserva\Create.cshtml" />
+    <Content Include="Views\Reserva\Details.cshtml" />
+    <Content Include="Views\Reserva\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -297,8 +315,8 @@
     <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202411230325109_MigracionV1.resx">
-      <DependentUpon>202411230325109_MigracionV1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202412050333348_MigracionV7.resx">
+      <DependentUpon>202412050333348_MigracionV7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

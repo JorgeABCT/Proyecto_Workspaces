@@ -1,7 +1,71 @@
-﻿
+﻿@model Proyecto_Workspaces.Models.Salas_Reuniones
 @{
     ViewBag.Title = "Editar";
 }
 
 <h2>Editar</h2>
 
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #2B4552;">Crear Nueva Sala</h2>
+
+    <div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.SalasId)
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="SalasNombre" class="form-label" style="color: #2B4552;">Nombre de la Sala</label>
+                        @Html.EditorFor(model => model.SalasNombre, new { htmlAttributes = new { @class = "form-control", @type = "text", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.SalasNombre, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Capacidad" class="form-label" style="color: #2B4552;">Capacidad</label>
+                        @Html.EditorFor(model => model.Capacidad, new { htmlAttributes = new { @class = "form-control", @type = "number", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.Capacidad, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="Ubicacion" class="form-label" style="color: #2B4552;">Ubicación</label>
+                        @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control", @type = "text", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            @Html.CheckBoxFor(model => model.Activo, new { @class = "form-check-input", @type = "checkbox", @checked = "true" })
+                            <label for="Activo" class="form-check-label" style="color: #2B4552;">Quiere activar la sala de una vez?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="Hora_Apertura" class="form-label" style="color: #2B4552;">Hora de apertura de la sala</label>
+                        @Html.EditorFor(model => model.Hora_Apertura, new { htmlAttributes = new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.Hora_Apertura, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Hora_Clausura" class="form-label" style="color: #2B4552;">Hora de clausura de la sala</label>
+                        @Html.EditorFor(model => model.Hora_Clausura, new { htmlAttributes = new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.Hora_Clausura, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <br />
+                <div class="text-center">
+                    <button type="submit"
+                            class="btn"
+                            style="background-color: #557788; color: #EEEAE7; border-radius: 5px;">
+                        <i class="fas fa-save"></i> Editar
+                    </button>
+                    @Html.ActionLink("Cancelar", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -65,9 +65,44 @@ namespace Proyecto_Workspaces.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [Display(Name = "Primer Apellido")]
+        public string PrimerApellido { get; set; }
+
+        [Required]
+        [Display(Name = "Segundo Aéllido")]
+        public string SegundoApellido { get; set; }
+
+        [Required]
+        [Display(Name = "Puesto")]
+        public string Puesto { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Confirmar correo electrónico")]
+        public string EmailConfirmed { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Numero de Telefono")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Confirmar Numero de Telefono")]
+        public string PhoneNumberConfirmed { get; set; }
+
+        [Required]
+        [Display(Name = "Nombre de Usuario")]
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]

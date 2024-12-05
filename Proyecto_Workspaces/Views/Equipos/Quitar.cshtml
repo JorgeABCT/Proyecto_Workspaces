@@ -1,0 +1,41 @@
+﻿@model Proyecto_Workspaces.Models.Equipo
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<h2>Quitar uso de equipo de sala de reunion</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <br />
+            @Html.HiddenFor(model => model.EquipoId)
+            @Html.LabelFor(model => model.Nombre, "Nombre del Equipo", htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+            <br />
+            @Html.DisplayFor(model => model.Nombre)
+            <br />
+            <br />
+            @Html.LabelFor(model => model.Serie, "Serie del Equipo", htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+            <br />
+            @Html.DisplayFor(model => model.Serie)
+            <br />
+            <br />
+            <div class="col-md-10">
+                @Html.DropDownList("ID_Salas", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EquipoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit"
+                class="btn"
+                style="background-color: #557788; color: #EEEAE7; border-radius: 5px;">
+            <i class="fas fa-save"></i> Quitar de la sala
+        </button>
+        @Html.ActionLink("Volver al listado", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+    </div>
+}
