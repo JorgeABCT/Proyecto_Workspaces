@@ -32,9 +32,6 @@ namespace Proyecto_Workspaces
             bundles.Add(new StyleBundle("~/Content/InicioS").Include(
                     "~/Content/InicioSesion.css"));
 
-            bundles.Add(new StyleBundle("~/Content/Registrarse").Include(
-                    "~/Content/Registrarse.css",
-                    "~/Content/InicioSesion.css"));
         }
     }
 }

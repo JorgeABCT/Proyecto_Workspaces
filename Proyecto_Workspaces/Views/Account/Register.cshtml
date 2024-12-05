@@ -4,50 +4,104 @@
 }
 
 @section Styles {
-    @Styles.Render("~/Content/Registrarse")
+    @Styles.Render("~/Content/InicioS")
 
 }
 
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title</h2>
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
     {
-        <div class="row g-3">
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="card shadow p-4" style="width: 35rem;">
+                <h3 class="text-center mb-3">Registro</h3>
+                <hr />
+                <div class="row g-3">
 
-            <!-- Nombre -->
-            <div class="col-12 form-floating">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nombre" })
-                <label for="Nombre">Nombre</label>
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    <!-- Nombre -->
+                    <div class="col-12 col-md-12 form-floating">
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                        <label for="Nombre">Nombre</label>
+                        @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Primer Apellido -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.PrimerApellido, new { @class = "form-control", placeholder = "Primer Apellido" })
+                        <label for="PrimerApellido">Primer Apellido</label>
+                        @Html.ValidationMessageFor(m => m.PrimerApellido, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Segundo Apellido -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.SegundoApellido, new { @class = "form-control", placeholder = "Segundo Apellido" })
+                        <label for="SegundoApellido">Segundo Apellido</label>
+                        @Html.ValidationMessageFor(m => m.SegundoApellido, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Nombre de Usuario -->
+                    <div class="col-12 form-floating">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Nombre de Usuario" })
+                        <label for="UserName">Nombre de Usuario</label>
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Correo Electrónico -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Correo electrónico" })
+                        <label for="Email">Correo electrónico</label>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Confirmar Correo Electrónico -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.EmailConfirmed, new { @class = "form-control", placeholder = "Confirmar correo electrónico" })
+                        <label for="EmailConfirmed">Confirmar correo electrónico</label>
+                        @Html.ValidationMessageFor(m => m.EmailConfirmed, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Número de Teléfono -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Número de Teléfono" })
+                        <label for="PhoneNumber">Número de Teléfono</label>
+                        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Confirmar Número de Teléfono -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.PhoneNumberConfirmed, new { @class = "form-control", placeholder = "Confirmar Número de Teléfono" })
+                        <label for="PhoneNumberConfirmed">Confirmar Número de Teléfono</label>
+                        @Html.ValidationMessageFor(m => m.PhoneNumberConfirmed, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+                        <label for="Password">Contraseña</label>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Confirmar Contraseña -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirmar contraseña" })
+                        <label for="ConfirmPassword">Confirmar contraseña</label>
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Botón Registrar -->
+                    <div class="col-12">
+                        <button class="w-100 btn btn-outline-dark" type="submit">Registrar</button>
+                    </div>
+
+                    <!-- Enlace a inicio de sesión -->
+                    <div class="col-12 text-center">
+                        <a class="text-decoration-none text-dark" href="/Account/Login">¿Ya tienes cuenta? Inicia sesión</a>
+                    </div>
+                </div>
             </div>
-
-
-            <!-- Primer Apellido -->
-            <div class="col-5 form-floating">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Primer Apellido" })
-                <label for="PrimerApellido">Primer Apellido</label>
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-            </div>
-
-            <!-- Segundo Apellido -->
-            <div class="col-5 form-floating">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Segundo Apellido" })
-                <label for="SegundoApellido">Segundo Apellido</label>
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-            </div>
-
-            <!-- Botón de Registrar -->
-            <div class="col-12 text-center"> 
-                <button class="w-100 btn btn-outline-dark" type="submit"> <h4>Registrar</h4> </button>
-            </div>
-
-            <!-- Enlace a inicio de sesión -->
-            <div class="col-12 text-center mt-3">
-                <a class="link" href="/Account/Login">¿Ya tienes cuenta? Inicia sesión</a>
-            </div>
-
         </div>
+
+
     }
 </main>
 

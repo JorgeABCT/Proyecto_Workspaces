@@ -213,7 +213,6 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Header&amp;Footer.css" />
     <Content Include="Content\InicioSesion.css" />
-    <Content Include="Content\Registrarse.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

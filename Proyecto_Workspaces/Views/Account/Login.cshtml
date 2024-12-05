@@ -11,41 +11,45 @@
 <main aria-labelledby="title">
     <div class="container">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <section id="loginForm">
-                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { role = "form", id = "formIniciarSesion" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <h3 class="mb-3 text-center">Iniciar sesión</h3>
-                        <hr />
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="position-absolute top-50 start-50 translate-middle">
+                    <div class="card shadow p-4" style="width: 25rem;">
+                        <section id="loginForm">
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { role = "form", id = "formIniciarSesion" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <h3 class="mb-3 text-center">Iniciar sesión</h3>
+                                <hr />
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <!-- Nombre de usuario -->
-                        <div class="form-floating">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "nombreUsuario" })
-                            <label for="Email">Correo Electrónico</label>
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
+                                <!-- Nombre de usuario -->
+                                <div class="form-floating mb-3">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Correo Electrónico" })
+                                    <label for="Email">Correo Electrónico</label>
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
 
-                        <!-- Contraseña -->
-                        <div class="form-floating">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
-                            <label for="Password">Contraseña</label>
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
+                                <!-- Contraseña -->
+                                <div class="form-floating mb-3">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+                                    <label for="Password">Contraseña</label>
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
 
-                        <!-- Botón iniciar sesión -->
-                        <button id="iniciarSesionBtn" class="w-100 btn btn-outline-dark" type="submit">Iniciar sesión</button>
-                        <br>
+                                <!-- Botón iniciar sesión -->
+                                <button id="iniciarSesionBtn" class="w-100 btn btn-outline-dark" type="submit">Iniciar sesión</button>
+                                <br><br>
 
-                        <!-- Enlace para registrarse -->
-                        <a class="text-decoration-none text-dark" href="@Url.Action("Register", "Account")">¿No tienes una cuenta? Regístrate</a>
-                    }
-                </section>
+                                <!-- Enlace para registrarse -->
+                                <a class="text-decoration-none text-dark text-center d-block" href="@Url.Action("Register", "Account")">¿No tienes una cuenta? Regístrate</a>
+                            }
+                        </section>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 
