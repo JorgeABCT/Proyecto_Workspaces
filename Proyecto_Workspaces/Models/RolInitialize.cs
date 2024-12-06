@@ -25,7 +25,7 @@ namespace Proyecto_Workspaces.Models
             }
 
             //Usuario por defecto 
-            var adminUser = new ApplicationUser { UserName = "admin@workspaces.com", Email = "admin@workspaces.com"};
+            var adminUser = new ApplicationUser { UserName = "admin1", Email = "admin@workspaces.com"};
             string Contraseña = "Admin123";
 
             if (userManager.FindByEmail(adminUser.Email) == null)

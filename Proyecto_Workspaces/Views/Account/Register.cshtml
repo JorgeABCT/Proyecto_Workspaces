@@ -10,8 +10,9 @@
 
 <main aria-labelledby="title">
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", id = "registrarUsuario" }))
     {
+        @Html.AntiForgeryToken()
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
             <div class="card shadow p-4" style="width: 35rem;">
                 <h3 class="text-center mb-3">Registro</h3>
@@ -19,10 +20,17 @@
                 <div class="row g-3">
 
                     <!-- Nombre -->
-                    <div class="col-12 col-md-12 form-floating">
-                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre"})
                         <label for="Nombre">Nombre</label>
                         @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Nombre de Usuario -->
+                    <div class="col-12 col-md-6 form-floating">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Nombre de Usuario"})
+                        <label for="UserName">Nombre de Usuario</label>
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Primer Apellido -->
@@ -39,13 +47,6 @@
                         @Html.ValidationMessageFor(m => m.SegundoApellido, "", new { @class = "text-danger" })
                     </div>
 
-                    <!-- Nombre de Usuario -->
-                    <div class="col-12 form-floating">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Nombre de Usuario" })
-                        <label for="UserName">Nombre de Usuario</label>
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                    </div>
-
                     <!-- Correo Electrónico -->
                     <div class="col-12 col-md-6 form-floating">
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Correo electrónico" })
@@ -53,12 +54,13 @@
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
 
-                    <!-- Confirmar Correo Electrónico -->
-                    <div class="col-12 col-md-6 form-floating">
-                        @Html.TextBoxFor(m => m.EmailConfirmed, new { @class = "form-control", placeholder = "Confirmar correo electrónico" })
-                        <label for="EmailConfirmed">Confirmar correo electrónico</label>
-                        @Html.ValidationMessageFor(m => m.EmailConfirmed, "", new { @class = "text-danger" })
-                    </div>
+                    @* <!-- Confirmar Correo Electrónico -->
+        <div class="col-12 col-md-6 form-floating">
+            @Html.TextBoxFor(m => m.EmailConfirmed, new { @class = "form-control", placeholder = "Confirmar correo electrónico" })
+            <label for="EmailConfirmed">Confirmar correo electrónico</label>
+            @Html.ValidationMessageFor(m => m.EmailConfirmed, "", new { @class = "text-danger" })
+        </div>
+                    *@
 
                     <!-- Número de Teléfono -->
                     <div class="col-12 col-md-6 form-floating">
@@ -67,26 +69,53 @@
                         @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
                     </div>
 
-                    <!-- Confirmar Número de Teléfono -->
-                    <div class="col-12 col-md-6 form-floating">
-                        @Html.TextBoxFor(m => m.PhoneNumberConfirmed, new { @class = "form-control", placeholder = "Confirmar Número de Teléfono" })
-                        <label for="PhoneNumberConfirmed">Confirmar Número de Teléfono</label>
-                        @Html.ValidationMessageFor(m => m.PhoneNumberConfirmed, "", new { @class = "text-danger" })
-                    </div>
+                    @*@<!-- Confirmar Número de Teléfono -->
+        <div class="col-12 col-md-6 form-floating">
+            @Html.TextBoxFor(m => m.PhoneNumberConfirmed, new { @class = "form-control", placeholder = "Confirmar Número de Teléfono" })
+            <label for="PhoneNumberConfirmed">Confirmar Número de Teléfono</label>
+            @Html.ValidationMessageFor(m => m.PhoneNumberConfirmed, "", new { @class = "text-danger" })
+        </div>
+                    *@
 
                     <!-- Contraseña -->
                     <div class="col-12 col-md-6 form-floating">
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña", @type = "password", id = "Contrasenna" })
                         <label for="Password">Contraseña</label>
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Confirmar Contraseña -->
                     <div class="col-12 col-md-6 form-floating">
-                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirmar contraseña" })
-                        <label for="ConfirmPassword">Confirmar contraseña</label>
-                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        <input class="form-control" type="password" id="confirmarContrasenna" placeholder="Confirmar contraseña" />
+                        <label for="confirmarContrasenna">Confirmar contraseña</label>
                     </div>
+
+                    @*
+        <!-- Confirmar Contraseña -->
+        <div class="col-12 col-md-6 form-floating">
+            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirmar contraseña" })
+            <label for="ConfirmPassword">Confirmar contraseña</label>
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+                    *@
+
+                    @Html.HiddenFor(model => model.Puesto, new { id = "Puesto", Value = "Por asignar/Trabajador" })
+
+                    <!--Por si hay algun error. Decirle al usuario-->
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="col-12">
+                            <p class="text-danger text-center">@ViewBag.Error</p>
+                            <p class="text-danger text-center" id="mostrarJqueryValidacion"></p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <p class="text-danger text-center" id="mostrarJqueryValidacion"></p>
+                        </div>
+                    }
 
                     <!-- Botón Registrar -->
                     <div class="col-12">
@@ -100,11 +129,25 @@
                 </div>
             </div>
         </div>
-
-
     }
 </main>
 
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#registrarUsuario").on("submit", function (event) {
+            event.preventDefault();
+            let contraOriginal = $('#Contrasenna').val();
+            let contraConfirmar = $('#confirmarContrasenna').val();
+            if (contraOriginal != contraConfirmar) {
+                console.log(contraOriginal)
+                console.log(contraConfirmar)
+                $("#mostrarJqueryValidacion").text("Las contraseñas no coinciden")
+                console.log("Aqui llega")
+            } else {
+                event.currentTarget.submit();
+            }
+        });
+    </script>
 }
