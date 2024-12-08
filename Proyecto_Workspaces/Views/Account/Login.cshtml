@@ -15,7 +15,7 @@
             <div class="col-md-4">
                 <div class="position-absolute top-50 start-50 translate-middle">
                     <div class="card shadow p-4" style="width: 25rem;">
-                        <section id="loginForm">
+                        <section id="loginForm" class="d-flex justify-content-center">
                             @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { role = "form", id = "formIniciarSesion" }))
                             {
                                 @Html.AntiForgeryToken()
@@ -37,7 +37,13 @@
                                     <label for="Password">Contraseña</label>
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>
-
+                                if (ViewBag.Error != null)
+                                {
+                                    <br />
+                                    <div class="col-12">
+                                        <p class="text-danger text-center">@ViewBag.Error</p>
+                                    </div>
+                                }
                                 <!-- Botón iniciar sesión -->
                                 <button id="iniciarSesionBtn" class="w-100 btn btn-outline-dark" type="submit">Iniciar sesión</button>
                                 <br><br>

@@ -26,19 +26,20 @@
                     <li>@Html.ActionLink("Equipos", "Index", "Equipos", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Estadisticas", "Index", "Estadisticas", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
-                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="fixed-bottom">
-            <hr />
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        <footer class="fixed-bottom bg-dark rounded-top">
+            <br />
+            <p class="text-light">&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
