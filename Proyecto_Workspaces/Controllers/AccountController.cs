@@ -164,6 +164,9 @@ namespace Proyecto_Workspaces.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var usuarioActual = UserManager.FindByEmail(model.Email);
+                    var agregarRol = UserManager.AddToRole(usuarioActual.Id, "Usuario");
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
