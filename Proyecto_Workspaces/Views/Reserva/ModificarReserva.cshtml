@@ -1,10 +1,11 @@
 ﻿@model Proyecto_Workspaces.Models.Reserva
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "ModificarReserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>ModificarReserva</h2>
 
 @using (Html.BeginForm())
 {
@@ -40,15 +41,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Modificada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Modificada)
-                    @Html.ValidationMessageFor(model => model.Modificada, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

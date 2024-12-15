@@ -26,10 +26,22 @@ namespace Proyecto_Workspaces.Controllers
             return View(reserva);
         }
 
+        public ActionResult Detalle(int? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            var sala = context.SalasReuniones.FirstOrDefault(x => x.SalasId == id);
+            if (sala == null) return HttpNotFound();
+            return View(sala);
+        }
+
         //LIST
         //Ver reservas Admin y usuario
         public ActionResult VerReservas()
         {
+            //UsuarioId
+            var userId = User.Identity.GetUserId();
+            var user = context.Users.Find(userId);
+
             var idUsuario = User.Identity.GetUserId();
             if (User.Identity.IsAuthenticated)
             {
@@ -37,14 +49,14 @@ namespace Proyecto_Workspaces.Controllers
                 if (User.IsInRole("Administrador"))
                 {
                     //Listado de todas las reservas realizadas
-                    var reserva = context.Reservas.ToList();
+                    var reserva = context.Reservas.Include(x => x.Sala).Include(x => x.Estado).ToList();
                     return View(reserva);
                 }
                 //Reservas de Solo el Usuario
                 else if (User.IsInRole("Usuario"))
                 {
                     //Solo muestra las del usuario / Pasadas Futuras
-                    var reserva = context.Reservas.Where(x => x.User.Id == idUsuario).ToList();
+                    var reserva = context.Reservas.Include(x => x.Sala).Include(x => x.Estado).Where(x => x.User.Id == user.Id).ToList();
                     return View(reserva);
                 }
                 else
@@ -64,6 +76,10 @@ namespace Proyecto_Workspaces.Controllers
         [HttpGet]
         public ActionResult Reservar(int SalasId)
         {
+            //UsuarioId
+            var userId = User.Identity.GetUserId();
+            var user = context.Users.Find(userId);
+
             //Esta obteniendo la sala por el id de la sala 
             var sala = context.SalasReuniones.FirstOrDefault(s => s.SalasId == SalasId);
 
@@ -74,7 +90,7 @@ namespace Proyecto_Workspaces.Controllers
             };
 
             //Obtener las reservas ligadas a la sala especifica
-            var reservasSala = context.Reservas.Where(r => r.Sala.SalasId == SalasId).ToList();
+            var reservasSala = context.Reservas.Include(x => x.User).Where(r => r.Sala.SalasId == SalasId).ToList();
 
             //Manda todas las Reservas de la sala, a la vista 
             ViewBag.ReservasSala = reservasSala;
@@ -90,40 +106,81 @@ namespace Proyecto_Workspaces.Controllers
         {
             try
             {
-                //Obtenemos el id del usuario
+                // Obtén el id del usuario
                 var idUsuario = User.Identity.GetUserId();
-                //Filtramos la tabla users por medio del id 
                 var usuario = context.Users.FirstOrDefault(u => u.Id == idUsuario);
-                //Filtramos la tabla SalaReuniones por medio del id 
-                var sala = context.SalasReuniones.FirstOrDefault(u => u.SalasId == model.Sala.SalasId);
 
-                //Filtramos el estado por medio del id (1 = Activo)
+                // Obtener sala basada en el ID proporcionado
+                var sala = context.SalasReuniones.FirstOrDefault(u => u.SalasId == model.Sala.SalasId);
+                if (sala == null)
+                {
+                    ModelState.AddModelError("", "La sala seleccionada no existe.");
+                    return View(model);
+                }
+
                 var estado = context.Estados.FirstOrDefault(u => u.EstadoID == 1);
 
-                //Obj de reserva que guarde toda la informacion ingresada por el usuario
+                // Combina la fecha y la hora de inicio y finalización en DateTime
+                DateTime fechaInicio = model.Fecha.Date + model.FechaReservacion;
+                DateTime fechaFin = model.Fecha.Date + model.FechaFinalizacion;
+
+                // Convierte las horas de apertura y clausura en DateTime
+                DateTime horaApertura = model.Fecha.Date + sala.Hora_Apertura;
+                DateTime horaClausura = model.Fecha.Date + sala.Hora_Clausura;
+
+                // Validar rango de horarios permitidos
+                if (fechaInicio < horaApertura || fechaInicio > horaClausura)
+                {
+                    ModelState.AddModelError("", $"El horario permitido para esta sala es entre {horaApertura:hh\\:mm tt} y {horaClausura:hh\\:mm tt}.");
+                    return View(model);
+                }
+
+                if (fechaFin <= fechaInicio)
+                {
+                    ModelState.AddModelError("", "La hora de finalización debe ser posterior a la hora de inicio.");
+                    return View(model);
+                }
+
+                //UsuarioId
+                var userId = User.Identity.GetUserId();
+                var user = context.Users.Find(userId);
+                model.User = user;
+
+                // Crea el objeto de reserva
                 var reserva = new Reserva
                 {
-                    User = usuario,
+                    User = user,
                     Sala = sala,
                     Estado = estado,
                     Fecha = model.Fecha,
                     FechaReservacion = model.FechaReservacion,
-                    FechaFinalizacion = model.FechaReservacion,
+                    FechaFinalizacion = model.FechaFinalizacion,
                     Modificada = false
                 };
 
-                //Insert
+                var reservasDentroDelRango = ObtenerReservasPorRango(reserva.Fecha, reserva.FechaReservacion, reserva.FechaFinalizacion);
+                var cantidadDeReservasRango = reservasDentroDelRango.Count();
+
+                if (cantidadDeReservasRango == 0)
+                {
+                    // Insertar en la base de datos
+                    context.Reservas.Add(reserva);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
                 context.Reservas.Add(reserva);
-                //Commit (Se guarde en la base de datos)
                 context.SaveChanges();
-                //Lo devolvemos a una pantalla (Index)
+
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                System.Diagnostics.Debug.WriteLine(ex);
+                return View("Error"); 
             }
         }
+
 
         // GET: Reserva/Edit/5
         public ActionResult ModificarReserva(int id)
@@ -133,13 +190,19 @@ namespace Proyecto_Workspaces.Controllers
 
         // POST: Reserva/Edit/5
         [HttpPost]
-        public ActionResult ModificarReserva(int id, FormCollection collection)
+        public ActionResult ModificarReserva(Reserva reserva)
         {
+            var idReserva = reserva.ReservaId;
+            var reservaEditar = context.Reservas.Find(idReserva);
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                reservaEditar.Estado = reservaEditar.Estado;
+                reservaEditar.Sala = reservaEditar.Sala;
+                reservaEditar.Modificada = true;
+                reservaEditar.User = reservaEditar.User;
+                context.Entry(reserva).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("VerReservas");
             }
             catch
             {
@@ -147,33 +210,76 @@ namespace Proyecto_Workspaces.Controllers
             }
         }
 
+
+        // POST: Conferencias/RegistrarAsistente
         [HttpPost]
-        public JsonResult CancelarReserva(int reservaId)
+        public JsonResult CancelarReserva(int ReservaId)
         {
-
-            if (reservaId != null)
+            var reserva = context.Reservas.Find(ReservaId);
+            if (reserva.ReservaId != 0)
             {
-                //Obj de reserva que guarde toda la informacion ingresada por el usuario
-                var reserva = new Reserva
-                {
-                    User = User,
-                    Sala = sala,
-                    Estado = estado,
-                    Fecha = model.Fecha,
-                    FechaReservacion = model.FechaReservacion,
-                    FechaFinalizacion = model.FechaReservacion,
-                    Modificada = false
-                };
+                var idEstado = 2;
+                var estado = context.Estados.Find(idEstado);
+                reserva.Estado = estado;
 
-                context.Entry(sala).State = System.Data.Entity.EntityState.Modified;
+                reserva.Modificada = true;
+                reserva.Sala = reserva.Sala;
+                reserva.FechaReservacion = reserva.FechaReservacion;
+                reserva.FechaFinalizacion = reserva.FechaFinalizacion;
+                reserva.Fecha = reserva.Fecha;  
+                reserva.User = reserva.User;
+                context.Entry(reserva).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
-
-
-                return Json(new { success = true });
-
+                return Json(new { success = true, message = "Reserva cancelada correctamente!" });
             }
-            return Json(new { success = false, message = "No se encontró la reserva." });
+            return Json(new { success = false, message = "No se encontró la reservacion." });
         }
+        
+        /* [HttpPost]
+         public JsonResult CancelarReserva(int reservaId)
+         {
+
+             if (reservaId != null)
+             {
+                 //Obj de reserva que guarde toda la informacion ingresada por el usuario
+                 var reserva = new Reserva
+                 {
+                     User = User,
+                     Sala = sala,
+                     Estado = estado,
+                     Fecha = model.Fecha,
+                     FechaReservacion = model.FechaReservacion,
+                     FechaFinalizacion = model.FechaReservacion,
+                     Modificada = false
+                 };
+
+                 context.Entry(sala).State = System.Data.Entity.EntityState.Modified;
+                 context.SaveChanges();
+
+
+                 return Json(new { success = true });
+
+             }
+             return Json(new { success = false, message = "No se encontró la reserva." });
+         }*/
+
+
+        public List<Reserva> ObtenerReservasPorRango(DateTime fechaUsuario, TimeSpan horaInicioUsuario, TimeSpan horaFinUsuario)
+        {
+            var reservas = context.Reservas.Where(r =>
+                r.Fecha == fechaUsuario.Date && 
+                (
+                    (r.FechaReservacion >= horaInicioUsuario && r.FechaReservacion < horaFinUsuario) ||
+                    (r.FechaFinalizacion > horaInicioUsuario && r.FechaFinalizacion <= horaFinUsuario) ||
+                    (horaInicioUsuario >= r.FechaReservacion && horaFinUsuario <= r.FechaFinalizacion) ||
+                    (horaInicioUsuario <= r.FechaReservacion && horaFinUsuario >= r.FechaFinalizacion)
+                )
+            ).ToList();
+
+            return reservas;
+        }
+
+
 
     }
 }

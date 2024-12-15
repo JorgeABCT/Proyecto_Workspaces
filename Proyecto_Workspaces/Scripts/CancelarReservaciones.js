@@ -1,9 +1,9 @@
-﻿function toggleEstado(ReservaId) {
+﻿function cancelar(ReservaId ) {
 
     Swal.fire({
         title: "¿Estás seguro?",
-        text: `¿Deseas cancelar la persona?`,
-        icon: "warning",
+        text: `¿Deseas cancelar la reserva?`,
+        icon: "info",
         showCancelButton: true,
         confirmButtonText: "Sí",
         cancelButtonText: "No",
@@ -15,7 +15,7 @@
                 data: { ReservaId: ReservaId },
                 success: function (response) {
                     if (response.success) {
-                        location.reload();
+                        Swal.fire("Cancelacion", response.message, "success");
                     } else {
                         Swal.fire("Error", response.message, "error");
                     }
@@ -25,7 +25,7 @@
                 }
             });
         } else {
-            Swal.fire("No se ha cancelado la reserva.", "", "info");
+            Swal.fire("No se ha cambiado el estado de la persona.", "", "info");
         }
     });
 }
