@@ -73,7 +73,7 @@ namespace Proyecto_Workspaces.Models
         public string PrimerApellido { get; set; }
 
         [Required]
-        [Display(Name = "Segundo Aéllido")]
+        [Display(Name = "Segundo Apellido")]
         public string SegundoApellido { get; set; }
 
         [Required]

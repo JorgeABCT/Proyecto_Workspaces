@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Proyecto_Workspaces.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,19 @@ namespace Proyecto_Workspaces.Controllers
     public class ReservaController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private ApplicationUserManager _userManager;
 
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         //LIST
         //Index = Para ver las salas disponibles, para poder hacer una reserva 
@@ -36,6 +49,7 @@ namespace Proyecto_Workspaces.Controllers
 
         //LIST
         //Ver reservas Admin y usuario
+        [Authorize]
         public ActionResult VerReservas()
         {
             //UsuarioId
@@ -74,6 +88,7 @@ namespace Proyecto_Workspaces.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Reservar(int SalasId)
         {
             //UsuarioId
@@ -86,7 +101,8 @@ namespace Proyecto_Workspaces.Controllers
             //Un objeto para meter toda la infomacion de la sala dentro del modelo de Reserva 
             var modeloReserva = new Reserva
             {
-                Sala = sala
+                Sala = sala,
+                User = user
             };
 
             //Obtener las reservas ligadas a la sala especifica
@@ -97,11 +113,12 @@ namespace Proyecto_Workspaces.Controllers
 
             //Retorna el objeto de Reserva 
             return View(modeloReserva);
-
         }
 
 
+
         [HttpPost]
+        [Authorize]
         public ActionResult Reservar(Reserva model)
         {
             try
@@ -109,6 +126,7 @@ namespace Proyecto_Workspaces.Controllers
                 // Obtén el id del usuario
                 var idUsuario = User.Identity.GetUserId();
                 var usuario = context.Users.FirstOrDefault(u => u.Id == idUsuario);
+                model.User = usuario;
 
                 // Obtener sala basada en el ID proporcionado
                 var sala = context.SalasReuniones.FirstOrDefault(u => u.SalasId == model.Sala.SalasId);
@@ -144,7 +162,6 @@ namespace Proyecto_Workspaces.Controllers
                 //UsuarioId
                 var userId = User.Identity.GetUserId();
                 var user = context.Users.Find(userId);
-                model.User = user;
 
                 // Crea el objeto de reserva
                 var reserva = new Reserva
@@ -183,32 +200,44 @@ namespace Proyecto_Workspaces.Controllers
 
 
         // GET: Reserva/Edit/5
-        public ActionResult ModificarReserva(int id)
+        [Authorize(Roles="Administrador")]
+        public ActionResult ModificarReserva(int? id)
         {
-            return View();
+            if(id == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            var reserva = context.Reservas.FirstOrDefault(x => x.ReservaId == id);
+            if (reserva == null) return HttpNotFound();
+            //Retorna el objeto de Reserva 
+            return View(reserva);
         }
 
         // POST: Reserva/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public ActionResult ModificarReserva(Reserva reserva)
         {
             var idReserva = reserva.ReservaId;
             var reservaEditar = context.Reservas.Find(idReserva);
+            var estado = context.Estados.FirstOrDefault(u => u.EstadoID == 3);
             try
             {
-                reservaEditar.Estado = reservaEditar.Estado;
+                reservaEditar.Estado = estado;
                 reservaEditar.Sala = reservaEditar.Sala;
+                reservaEditar.Fecha = reserva.Fecha;
+                reservaEditar.FechaReservacion = reserva.FechaReservacion;
+                reservaEditar.FechaFinalizacion = reserva.FechaFinalizacion;
                 reservaEditar.Modificada = true;
                 reservaEditar.User = reservaEditar.User;
-                context.Entry(reserva).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(reservaEditar).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("VerReservas");
             }
             catch
             {
-                return View();
+                var reservaOriginal = context.Reservas.Find(idReserva);
+                return View(reservaOriginal);
             }
         }
+
 
 
         // POST: Conferencias/RegistrarAsistente

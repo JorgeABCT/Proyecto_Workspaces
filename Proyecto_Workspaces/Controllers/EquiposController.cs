@@ -10,6 +10,7 @@ using Proyecto_Workspaces.Models;
 
 namespace Proyecto_Workspaces.Controllers
 {
+    [Authorize(Roles="Administrador")]
     public class EquiposController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
