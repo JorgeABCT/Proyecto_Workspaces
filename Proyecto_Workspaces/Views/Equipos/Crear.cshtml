@@ -4,46 +4,40 @@
     ViewBag.Title = "Agregar Equipo";
 }
 
-<h2>Agregar Equipo</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #2B4552;">Agregar Equipo</h2>
 
+    <div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="Nombre" class="form-label" style="color: #2B4552;">Nombre del Equipo</label>
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @type = "text", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Serie" class="form-label" style="color: #2B4552;">Número de Serie</label>
+                        @Html.EditorFor(model => model.Serie, new { htmlAttributes = new { @class = "form-control", @type = "text", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px; " } })
+                        @Html.ValidationMessageFor(model => model.Serie, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Serie, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Serie, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Serie, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <br />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit"
-                        class="btn"
-                        style="background-color: #557788; color: #EEEAE7; border-radius: 5px;">
-                    <i class="fas fa-save"></i> Guardar
-                </button>
-                @Html.ActionLink("Cancelar", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
-            </div>
+                <br />
+                <div class="text-center">
+                    <button type="submit"
+                            class="btn"
+                            style="background-color: #557788; color: #EEEAE7; border-radius: 5px;">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    @Html.ActionLink("Cancelar", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+                </div>
+            }
         </div>
     </div>
-}
-
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
