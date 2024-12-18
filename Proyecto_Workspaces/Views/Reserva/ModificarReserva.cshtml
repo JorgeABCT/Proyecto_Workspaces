@@ -5,51 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ModificarReserva</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Reserva</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ReservaId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-6">
+            <div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
+                <div class="card-body">
+                    <h4>Modificar Reserva</h4>
+                    <hr />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ReservaId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaReservacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FechaReservacion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FechaReservacion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaFinalizacion, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FechaFinalizacion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FechaFinalizacion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Modificar Reserva" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaReservacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaReservacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FechaReservacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaFinalizacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaFinalizacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FechaFinalizacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="mt-3">
+    @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-secondary" })
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        //Consigue fecha actual del sistema
+        let fechaActual = new Date();
+        //Le suma una semana a la fecha actual
+        fechaActual.setDate(fechaActual.getDate())
+        //Consigue el valor de dia, mes y año
+        let mes = fechaActual.getMonth() + 1;
+        let dia = fechaActual.getDate();
+        let anno = fechaActual.getFullYear();
+        //Si el mes o dia es menor que 10, se agrega un 0 para que se pueda agregar el minimo
+        if (mes < 10)
+            mes = '0' + mes.toString();
+        if (dia < 10)
+            dia = '0' + dia.toString();
+
+        //Crea la fecha minima
+        let fechaMin = anno + '-' + mes + '-' + dia;
+        //Agrega el requisito al elemento con id 'fechaCita' (En este caso, un input)
+        $('#Fecha').attr('min', fechaMin);
+        let originalDate = '@Model.Fecha';
+        let partesDeFecha = originalDate.split(' ');
+
+        // Convertir a formato yyyy-MM-dd
+        let parts = partesDeFecha[0].split('/');
+        let formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+        // Establecer el valor en el input de fecha
+        $('#Fecha').val(formattedDate);
+    </script>
+}

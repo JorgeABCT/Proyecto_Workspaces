@@ -1,0 +1,43 @@
+﻿@model Proyecto_Workspaces.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<h2>Cambiar rol de usuario</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <br />
+            @Html.HiddenFor(model => model.Id)
+            @Html.LabelFor(model => model.UserName, "Nombre del Usuario", htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+            <br />
+            @Html.DisplayFor(model => model.UserName)
+            <br />
+            <br />
+            <label for="Nombre" class="control-label col-md-2 fw-bold">
+                Nombre del Usuario
+            </label>
+            <br />
+            <p>@Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model => model.PrimerApellido) @Html.DisplayFor(model => model.SegundoApellido)</p>
+            
+            <br />
+            <br />
+            <div class="col-md-10">
+                @Html.DropDownList("ID_Roles", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit"
+                class="btn btn-success">
+            <i class="fas fa-save"></i> Cambiar rol
+        </button>
+        @Html.ActionLink("Volver al listado", "Index", new { area = "" }, new { @class = "btn btn-warning"})
+    </div>
+}

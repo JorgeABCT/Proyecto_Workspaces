@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Proyecto_Workspaces.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class SalasController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();

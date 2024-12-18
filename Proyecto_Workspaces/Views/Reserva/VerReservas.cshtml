@@ -21,7 +21,7 @@
                 <th>@Html.DisplayNameFor(model => model.FechaReservacion)</th>
                 <th>@Html.DisplayNameFor(model => model.FechaFinalizacion)</th>
                 <th>@Html.DisplayNameFor(model => model.Modificada)</th>
-                <th>@Html.DisplayNameFor(model => model.Estado.EstadoNombre)</th>
+                <th class="col-1">Estado</th>
                 @if (User.IsInRole("Administrador"))
                 {
                     <th>Acciones</th>
@@ -42,7 +42,10 @@
                     {
                         <td>
                             @Html.ActionLink("Modificar", "ModificarReserva", new { id = item.ReservaId }, new { @class = "btn btn-success btn-sm", @style = "background-color: #8c9ebb; color: #2B4552;" })
-                            <button onclick="cancelar(@item.ReservaId, this, event)" class="btn btn-danger btn-sm" style="width: 70px;">Cancelar</button>
+                            @if (item.Estado.EstadoID != 2)
+                            {
+                                <button onclick="cancelar(@item.ReservaId, this, event)" class="btn btn-danger btn-sm" style="width: 70px;">Cancelar</button>
+                            }
                         </td>
                     }
                 </tr>

@@ -32,9 +32,12 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="badge" style="background-color: #BEBAB7; color: #557788; ">@disponbilidad</span>
                             <div>
-                                
-                                @Html.ActionLink("Detalles", "Detalle" , new { id = item.SalasId }, new { @class = "btn btn-sm", @style = "background-color: #8c9ebb; color: #2B4552;" })
-                                @Html.ActionLink("Reservar", "Reservar", new { SalasId = item.SalasId }, new { @class = "btn btn-sm", @style = "background-color: #97A3AA; color: #2B4552;" })
+
+                                @Html.ActionLink("Detalles", "Detalle", new { id = item.SalasId }, new { @class = "btn btn-sm", @style = "background-color: #8c9ebb; color: #2B4552;" })
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @Html.ActionLink("Reservar", "Reservar", new { SalasId = item.SalasId }, new { @class = "btn btn-sm", @style = "background-color: #97A3AA; color: #2B4552;" })
+                                }
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-﻿function cancelar(ReservaId ) {
+﻿function cancelar(ReservaId) {
 
     Swal.fire({
         title: "¿Estás seguro?",
@@ -15,7 +15,11 @@
                 data: { ReservaId: ReservaId },
                 success: function (response) {
                     if (response.success) {
-                        Swal.fire("Cancelacion", response.message, "success");
+                        Swal.fire("Cancelacion", response.message, "success").then((result) => {
+                            if (result) {
+                                window.location.reload()
+                            }
+                        });
                     } else {
                         Swal.fire("Error", response.message, "error");
                     }

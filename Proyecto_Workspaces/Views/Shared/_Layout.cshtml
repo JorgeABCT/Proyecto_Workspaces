@@ -21,11 +21,18 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Salas de Reuniones", "Index", "Salas", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Reservar", "Index", "Reserva", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Listado Reservas", "VerReservas", "Reserva", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Equipos", "Index", "Equipos", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Estadisticas", "Index", "Estadisticas", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Listado de Reservas", "VerReservas", "Reserva", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Salas de Reuniones", "Index", "Salas", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Equipos", "Index", "Equipos", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Estadisticas", "Estadisticas", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -36,7 +43,7 @@
         <hr />
         <footer class="fixed-bottom bg-dark rounded-top">
             <br />
-            <p class="text-light">&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p class="text-light">&copy; @DateTime.Now.Year - Jana Spaces</p>
         </footer>
     </div>
 
