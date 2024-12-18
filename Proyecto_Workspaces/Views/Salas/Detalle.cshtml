@@ -4,102 +4,61 @@
     ViewBag.Title = "Detalle";
 }
 
-<h2 class="text-center">Detalles de la sala de Reunion @Html.DisplayFor(model => model.SalasNombre)</h2>
+<h2 class="" style="color: #2B4552;">Detalles de la Sala de Reunión @Html.DisplayFor(model => model.SalasNombre)</h2>
 
-<div>
-    <hr />
-    <div class="d-flex justify-content-center">
-
-        <div class="row">
-            <div class="col d-flex justify-content-end">
-                <dl>
-                    <dt>
-                        Nombre de la sala
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.SalasNombre)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Capacidad)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Capacidad)
-                    </dd>
-
-                    <dt>
-                        Hora de Apertura
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Hora_Apertura)
-                    </dd>
-                </dl>
-            </div>
-            <div class="col">
-                <dl>
-                    <dt>
-                        Hora de Clausura
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Hora_Clausura)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Ubicacion)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Ubicacion)
-                    </dd>
-
-                    <dt>
-                        Equipo disponible:
-                    </dt>
-
-                    <dd>
-                        @if (Model.Equipos.Count != 0)
-                        {
-                            foreach (var item in Model.Equipos)
-                            {
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            }
-                        }
-                        else
-                        {
-                            @Html.Raw("No hay equipos disponibles.")
-                        }
-                    </dd>
-                </dl>
-            </div>
-            <br />
-            <div class="d-flex justify-content-center">
-                <dl>
-                    <dt>
-                        Esta activa?
-                    </dt>
-                    @if (Model.Activo)
-                    {
-                        <dd>
-                            Sala activa
-                        </dd>
-                    }
-                    else
-                    {
-                        <dd>
-                            Sala no disponible
-                        </dd>
-                    }
-
-                </dl>
-            </div>
-        </div>
+<div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
+    <div class="card-header text-light" style="background-color: #566885;">
+        <h4 class="text-light">Información de la Sala</h4>
     </div>
-    <div class="text-center">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3" style="color: #2B4552;">Nombre de la Sala</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.SalasNombre)</dd>
+
+            <dt class="col-sm-3" style="color: #2B4552;">Capacidad</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Capacidad)</dd>
+
+            <dt class="col-sm-3" style="color: #2B4552;">Hora de Apertura</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Hora_Apertura)</dd>
+
+            <dt class="col-sm-3" style="color: #2B4552;">Hora de Clausura</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Hora_Clausura)</dd>
+
+            <dt class="col-sm-3" style="color: #2B4552;">Ubicación</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ubicacion)</dd>
+
+            <dt class="col-sm-3" style="color: #2B4552;">Equipos Disponibles</dt>
+            <dd class="col-sm-9">
+                @if (Model.Equipos.Count != 0)
+                {
+                    <ul style="list-style-type: disc; padding-left: 20px;">
+                        @foreach (var item in Model.Equipos)
+                        {
+                            <li>@Html.DisplayFor(modelItem => item.Nombre)</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>No hay equipos disponibles.</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3" style="color: #2B4552;">Estado</dt>
+            <dd class="col-sm-9">
+                @if (Model.Activo)
+                {
+                    <span style="color: green;">Sala Activa</span>
+                }
+                else
+                {
+                    <span style="color: red;">Sala No Disponible</span>
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer text-end">
         @Html.ActionLink("Editar", "Editar", new { id = Model.SalasId }, new { @class = "btn", @style = "background-color: #97A3AA; color: #2B4552;" })
-        @Html.ActionLink("Volver al listado", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+        @Html.ActionLink("Volver al Listado", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
     </div>
-
+</div>

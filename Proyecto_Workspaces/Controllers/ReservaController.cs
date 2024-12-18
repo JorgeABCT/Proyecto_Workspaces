@@ -106,7 +106,7 @@ namespace Proyecto_Workspaces.Controllers
             };
 
             //Obtener las reservas ligadas a la sala especifica
-            var reservasSala = context.Reservas.Include(x => x.User).Where(r => r.Sala.SalasId == SalasId).ToList();
+            var reservasSala = context.Reservas.Where(r => r.Sala.SalasId == SalasId).ToList();
 
             //Manda todas las Reservas de la sala, a la vista 
             ViewBag.ReservasSala = reservasSala;
