@@ -28,8 +28,12 @@ namespace Proyecto_Workspaces.Models
         //Ex. 2024-12-04 12:00:00 -> 2024-12-04
 
         [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Hora Inicio de Reservacion")]
         public TimeSpan FechaReservacion { get; set; }
         [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Hora Finalizacion de Reservacion")]
         public TimeSpan FechaFinalizacion { get; set; }
         [Required]
         public bool Modificada { get; set; } = false;

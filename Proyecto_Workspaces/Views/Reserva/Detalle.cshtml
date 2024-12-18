@@ -7,9 +7,10 @@
 <h2 class="" style="color: #2B4552;">Detalles de la Sala de Reunión @Html.DisplayFor(model => model.SalasNombre)</h2>
 
 <div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
-    <div class="card-header text-light" style="background-color: #566885;">
+    <div class="card-header text-light" style="background-color: #566885;"">
         <h4 class="text-light">Información de la Sala</h4>
     </div>
+
     <div class="card-body">
         <dl class="row">
             <dt class="col-sm-3" style="color: #2B4552;">Nombre de la Sala</dt>
@@ -56,9 +57,8 @@
                 }
             </dd>
         </dl>
-    </div>
-    <div class="card-footer text-end">
-        @Html.ActionLink("Editar", "Editar", new { id = Model.SalasId }, new { @class = "btn", @style = "background-color: #97A3AA; color: #2B4552;" })
-        @Html.ActionLink("Volver al Listado", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+        <div class="text-end">
+            @Html.ActionLink("Volver al Listado", "Index", new { area = "" }, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+        </div>
     </div>
 </div>

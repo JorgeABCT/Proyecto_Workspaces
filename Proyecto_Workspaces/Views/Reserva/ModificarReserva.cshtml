@@ -1,0 +1,86 @@
+﻿@model Proyecto_Workspaces.Models.Reserva
+
+@{
+    ViewBag.Title = "ModificarReserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="color: #2B4552;">Modificar la Reserva</h2>
+
+<div class="card shadow-sm" style="background-color: #FFFFFF; border: 1px solid #97A3AA; border-radius: 10px;">
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <h4 style="color: #2B4552;">Detalles de la Reserva</h4>
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ReservaId)
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="Fecha" class="form-label" style="color: #2B4552;">Fecha de la Reserva</label>
+                    @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control", @type = "date", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;" } })
+                    @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="FechaReservacion" class="form-label" style="color: #2B4552;">Hora de Inicio</label>
+                    @Html.TextBoxFor(model => model.FechaReservacion, new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;" })
+                    @Html.ValidationMessageFor(model => model.FechaReservacion, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    <label for="FechaFinalizacion" class="form-label" style="color: #2B4552;">Hora de Finalización</label>
+                    @Html.TextBoxFor(model => model.FechaFinalizacion, new { @class = "form-control", @type = "time", @style = "background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 5px;" })
+                    @Html.ValidationMessageFor(model => model.FechaFinalizacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn" style="background-color: #557788; color: #EEEAE7; border-radius: 5px;">
+                    Crear Reserva
+                </button>
+                @Html.ActionLink("Volver al listado", "VerReservas", "Reserva", null, new { @class = "btn", @style = "background-color: #BEBAB7; color: #2B4552; border-radius: 5px;" })
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        //Consigue fecha actual del sistema
+        let fechaActual = new Date();
+        //Le suma una semana a la fecha actual
+        fechaActual.setDate(fechaActual.getDate())
+        //Consigue el valor de dia, mes y año
+        let mes = fechaActual.getMonth() + 1;
+        let dia = fechaActual.getDate();
+        let anno = fechaActual.getFullYear();
+        //Si el mes o dia es menor que 10, se agrega un 0 para que se pueda agregar el minimo
+        if (mes < 10)
+            mes = '0' + mes.toString();
+        if (dia < 10)
+            dia = '0' + dia.toString();
+
+        //Crea la fecha minima
+        let fechaMin = anno + '-' + mes + '-' + dia;
+        //Agrega el requisito al elemento con id 'fechaCita' (En este caso, un input)
+        $('#Fecha').attr('min', fechaMin);
+        let originalDate = '@Model.Fecha';
+        let partesDeFecha = originalDate.split(' ');
+
+        // Convertir a formato yyyy-MM-dd
+        let parts = partesDeFecha[0].split('/');
+        let formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+        // Establecer el valor en el input de fecha
+        $('#Fecha').val(formattedDate);
+    </script>
+}

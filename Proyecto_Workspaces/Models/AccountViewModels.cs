@@ -73,7 +73,7 @@ namespace Proyecto_Workspaces.Models
         public string PrimerApellido { get; set; }
 
         [Required]
-        [Display(Name = "Segundo Aéllido")]
+        [Display(Name = "Segundo Apellido")]
         public string SegundoApellido { get; set; }
 
         [Required]
@@ -86,19 +86,9 @@ namespace Proyecto_Workspaces.Models
         public string Email { get; set; }
 
         [Required]
-        [EmailAddress]
-        [Display(Name = "Confirmar correo electrónico")]
-        public string EmailConfirmed { get; set; }
-
-        [Required]
         [Phone]
         [Display(Name = "Numero de Telefono")]
         public string PhoneNumber { get; set; }
-
-        [Required]
-        [Phone]
-        [Display(Name = "Confirmar Numero de Telefono")]
-        public string PhoneNumberConfirmed { get; set; }
 
         [Required]
         [Display(Name = "Nombre de Usuario")]
@@ -109,11 +99,6 @@ namespace Proyecto_Workspaces.Models
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
-        public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel

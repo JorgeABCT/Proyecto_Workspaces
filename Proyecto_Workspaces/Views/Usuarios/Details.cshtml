@@ -1,0 +1,42 @@
+﻿@model Proyecto_Workspaces.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="mb-4">Información del Usuario</h2>
+
+<div class="card shadow">
+    <div class="card-header bg-warning text-dark">
+        <h4 class="mb-0">Información del Usuario</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+            <dt class="col-sm-3">Primer Apellido</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PrimerApellido)</dd>
+
+            <dt class="col-sm-3">Segundo Apellido</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.SegundoApellido)</dd>
+
+            <dt class="col-sm-3">Nombre de Usuario</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.UserName)</dd>
+
+            <dt class="col-sm-3">Correo Electrónico</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+            <dt class="col-sm-3">Número de Teléfono</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+            <dt class="col-sm-3">Rol del Usuario</dt>
+            <dd class="col-sm-9">@ViewBag.RolUser</dd>
+        </dl>
+    </div>
+    <div class="card-footer text-end">
+        @Html.ActionLink("Cambiar Rol", "CambiarRol", new { id = Model.Id }, new { @class = "btn btn-success" }) |
+        @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>
+

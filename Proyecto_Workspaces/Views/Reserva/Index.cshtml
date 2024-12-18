@@ -1,51 +1,60 @@
-﻿@model IEnumerable<Proyecto_Workspaces.Models.Reserva>
-
+﻿@model IEnumerable<Proyecto_Workspaces.Models.Salas_Reuniones>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #2B4552;">Reservar</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaReservacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaFinalizacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Modificada)
-        </th>
-        <th></th>
-    </tr>
+    @if (Model.Count() != 0)
+    {
+        int cantidad = 0;
+        foreach (var item in Model)
+        {
+            string disponbilidad = item.Activo ? "Disponible" : "No disponible";
+            string equipo = item.DisponibilidadEquipo ? "Posee equipo disponible" : "No posee equipo disponible";
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaReservacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaFinalizacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Modificada)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReservaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ReservaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReservaId })
-        </td>
-    </tr>
-}
+            if (cantidad == 0 || (cantidad % 3 == 0))
+            {
+                @Html.Raw("<div class='row'>")
+            }
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm" style="background-color: #f7f6f5; border: 1px solid #97A3AA; border-radius: 10px; ">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #2B4552;">
+                            <i class="fas fa-door-open"></i> @Html.DisplayFor(modelItem => item.SalasNombre)
+                        </h5>
+                        <p class="card-text">
+                            <strong>Capacidad:</strong> @Html.DisplayFor(modelItem => item.Capacidad)<br>
+                            <strong>Ubicación:</strong> @Html.DisplayFor(modelItem => item.Ubicacion)<br>
+                            <strong>Equipo disponible:</strong> @equipo<br>
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge" style="background-color: #BEBAB7; color: #557788; ">@disponbilidad</span>
+                            <div>
 
-</table>
+                                @Html.ActionLink("Detalles", "Detalle", new { id = item.SalasId }, new { @class = "btn btn-sm", @style = "background-color: #8c9ebb; color: #2B4552;" })
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @Html.ActionLink("Reservar", "Reservar", new { SalasId = item.SalasId }, new { @class = "btn btn-sm", @style = "background-color: #97A3AA; color: #2B4552;" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            if ((cantidad + 1) % 3 == 0)
+            {
+                @Html.Raw("</div>")
+            }
+            cantidad++;
+        }
+    }
+    else
+    {
+        <div class="row">
+            <h3 class="text-center">No hay salas disponibles</h3>
+        </div>
+    }
+
+</div>
