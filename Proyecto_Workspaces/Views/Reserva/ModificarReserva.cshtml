@@ -73,6 +73,22 @@
         let fechaMin = anno + '-' + mes + '-' + dia;
         //Agrega el requisito al elemento con id 'fechaCita' (En este caso, un input)
         $('#Fecha').attr('min', fechaMin);
+
+        //Consigue el valor de dia, mes y año
+        mes = fechaActual.getMonth();
+        dia = fechaActual.getDate();
+        anno = fechaActual.getFullYear() + 1;
+        //Si el mes o dia es menor que 10, se agrega un 0 para que se pueda agregar el minimo
+        if (mes < 10)
+            mes = '0' + mes.toString();
+        if (dia < 10)
+            dia = '0' + dia.toString();
+
+        //Crea la fecha minima
+        let fechaMax = anno + '-' + mes + '-' + dia;
+        //Agrega el requisito al elemento con id 'Fecha' (En este caso, un input)
+        $('#Fecha').attr('max', fechaMax);
+
         let originalDate = '@Model.Fecha';
         let partesDeFecha = originalDate.split(' ');
 
